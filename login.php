@@ -8,8 +8,6 @@
 
         if (mysqli_num_rows($log_in_rs))
         {
-            //echo "login successfully";
-          
             
             echo ("<script LANGUAGE='JavaScript'>
                 window.alert('Succesfully Login');
