@@ -21,7 +21,7 @@
         
         $log_in_rs = mysqli_query($conn, $qrry_1);
 
-        if (mysqli_num_rows($log_in_rs))
+        if ($log_in_rs)
         {
             
             echo ("<script LANGUAGE='JavaScript'>
