@@ -73,7 +73,7 @@
     </head>
     <body>
       <div id="serverbox" class="serverbox">
-             <form action="registration.php" method="post">
+          <!--   <form action="registration.php" method="post">-->
         <label for="psw"><b>Select Provider</b></label><br>
         <select name="provider">
             <option value="virtualmin">Virtualmin</option>
@@ -99,8 +99,8 @@
         <input type="text" id="user" name="user" title="user" placeholder="user" /><br>
         <label for="psw"><b>Password</b></label><br>
         <input type="password" id="password" name="password" title="password" placeholder="password" /><br>
-        <button type="submit" onclick="ConnectServer()">Connect</button><br>
-             </form>
+        <button type="submit"  onclick="ConnectServer()">Connect</button><br>
+            <!-- </form>-->
       </div>
       <div id="terminal" style="width:100%; height:90vh;visibility:hidden"></div>
       <script>
