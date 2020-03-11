@@ -11,14 +11,14 @@
             
             echo ("<script LANGUAGE='JavaScript'>
                 window.alert('Succesfully Login');
-                window.location.href='registration_server.html';
+                window.location.href='registration_server.php';
                 </script>");
         }
         else
         {
                echo ("<script LANGUAGE='JavaScript'>
                 window.alert('login failed');
-                window.location.href='index.html';
+                window.location.href='index.php';
                 </script>");
          
         }
