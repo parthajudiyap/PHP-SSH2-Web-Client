@@ -1,4 +1,5 @@
 <?php
+session_start();
  require_once("config.php");
         $email=$_POST['email'];
         $password=md5($_POST['password']);
@@ -8,18 +9,15 @@
 
         if (mysqli_num_rows($log_in_rs))
         {
-            
-            echo ("<script LANGUAGE='JavaScript'>
-                window.alert('Succesfully Login');
-                window.location.href='registration_server.php';
-                </script>");
+            $_SESSION['login'] ="login";
+          
+            $_SESSION['success']  = "Succesfully Login!!";
+            header('location:serverlist.php');
         }
         else
         {
-               echo ("<script LANGUAGE='JavaScript'>
-                window.alert('login failed');
-                window.location.href='index.php';
-                </script>");
+            $_SESSION['error']  = "Login failed!";
+            header('location:index.php');
          
         }
 	

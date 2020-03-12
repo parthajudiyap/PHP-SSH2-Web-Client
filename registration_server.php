@@ -27,6 +27,9 @@
       <script src="node_modules/xterm/dist/xterm.js"></script>
       <script src="node_modules/xterm/dist/addons/attach/attach.js"></script>
       <script src="node_modules/xterm/dist/addons/fit/fit.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
       <style>
       body {font-family: Arial, Helvetica, sans-serif;}
 
@@ -73,7 +76,37 @@
     </head>
     <body>
       <div id="serverbox" class="serverbox">
-          <!--   <form action="registration.php" method="post">-->
+          <?php 
+          session_start();
+           if (empty($_SESSION['login'])) 
+               {
+               header('location:index.php');
+           }
+          if (isset($_SESSION['success'])) {?>
+			
+                            <div class="alert alert-success" role="alert">
+				<h3>
+					<?php 
+						echo $_SESSION['success']; 
+						unset($_SESSION['success']);
+					?>
+				</h3>
+			</div>
+          <?php } ?>
+          <?php 
+          
+          if (isset($_SESSION['error'])) {?>
+			
+                            <div class="alert alert-danger" role="alert">
+				<h3>
+					<?php 
+						echo $_SESSION['error']; 
+						unset($_SESSION['error']);
+					?>
+				</h3>
+			</div>
+          <?php } ?>
+            <form action="registration.php" method="post">
         <label for="psw"><b>Select Provider</b></label><br>
         <select name="provider">
             <option value="virtualmin">Virtualmin</option>
@@ -99,71 +132,10 @@
         <input type="text" id="user" name="user" title="user" placeholder="user" /><br>
         <label for="psw"><b>Password</b></label><br>
         <input type="password" id="password" name="password" title="password" placeholder="password" /><br>
-        <button type="submit"  onclick="ConnectServer()">Connect</button><br>
-            <!-- </form>-->
+        <button type="submit" >Connect</button><br>
+         </form>
       </div>
-      <div id="terminal" style="width:100%; height:90vh;visibility:hidden"></div>
-      <script>
-        var resizeInterval;
-        var wSocket = new WebSocket("ws:autogitb.dev.pwtech.pw:8080");
-        Terminal.applyAddon(attach);  // Apply the `attach` addon
-        Terminal.applyAddon(fit);  //Apply the `fit` addon
-        var term = new Terminal({
-				  cols: 80,
-				  rows: 24
-        });
-        term.open(document.getElementById('terminal'));
-
-
-        function ConnectServer(){
-          document.getElementById("serverbox").style.visibility="hidden";
-          document.getElementById("terminal").style.visibility="visible";
-          var dataSend = {"auth":
-                            {
-                            "server":document.getElementById("server").value,
-                            "port":document.getElementById("port").value,
-                            "user":document.getElementById("user").value,
-                            "password":document.getElementById("password").value
-                            }
-                          };
-          wSocket.send(JSON.stringify(dataSend));
-          term.fit();
-          term.focus();
-        }       
-
-        wSocket.onopen = function (event) {
-          console.log("Socket Open");
-          term.attach(wSocket,false,false);
-          window.setInterval(function(){
-            wSocket.send(JSON.stringify({"refresh":""}));
-          }, 700);
-        };
-
-        wSocket.onerror = function (event){
-          term.detach(wSocket);
-          alert("Connection Closed");
-        }        
-        
-        term.on('data', function (data) {
-          var dataSend = {"data":{"data":data}};
-          wSocket.send(JSON.stringify(dataSend));
-          //Xtermjs with attach dont print zero, so i force. Need to fix it :(
-          if (data=="0"){
-            term.write(data);
-          }
-        })
-        
-        //Execute resize with a timeout
-        window.onresize = function() {
-          clearTimeout(resizeInterval);
-          resizeInterval = setTimeout(resize, 400);
-        }
-        // Recalculates the terminal Columns / Rows and sends new size to SSH server + xtermjs
-        function resize() {
-          if (term) {
-            term.fit()
-          }
-        }
-      </script>
+     
+     
     </body>
   </html>

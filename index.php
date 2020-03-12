@@ -6,6 +6,9 @@
       <script src="node_modules/xterm/dist/xterm.js"></script>
       <script src="node_modules/xterm/dist/addons/attach/attach.js"></script>
       <script src="node_modules/xterm/dist/addons/fit/fit.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
       <style>
       body {font-family: Arial, Helvetica, sans-serif;}
 
@@ -45,6 +48,19 @@
     <body>
      
       <div id="serverbox" class="serverbox">
+           <?php 
+           session_start();
+          if (isset($_SESSION['error'])) {?>
+			
+                            <div class="alert alert-danger" role="alert">
+				<h3>
+					<?php 
+						echo $_SESSION['error']; 
+						unset($_SESSION['error']);
+					?>
+				</h3>
+			</div>
+          <?php } ?>
           <form action="login.php" method="post">
        <label for="psw"><b>Email</b></label><br>
         <input type="text" id="email" name="email" title="email" placeholder="Enter Email" /><br>

@@ -24,17 +24,13 @@
         if ($log_in_rs)
         {
             
-            echo ("<script LANGUAGE='JavaScript'>
-                window.alert('Succesfully Registration');
-                window.location.href='registration_server.php';
-                </script>");
+            $_SESSION['success']  = "Succesfully Add Server!!";
+            header('location:serverlist.php');
         }
         else
         {
-               echo ("<script LANGUAGE='JavaScript'>
-                window.alert('Registration failed');
-                window.location.href='registration_server.php';
-                </script>");
+            $_SESSION['error']  = "failed Add Server!!";
+            header('location:registration_server.php');
          
         }
 	
