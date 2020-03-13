@@ -116,12 +116,7 @@
             <option value="cpanel">Rakcspace</option>
             <option value="plesk">Mt</option>
           </select><br>
-        <label for="psw"><b>Connect Method</b></label><br>
-        <select name="connect_method">
-            <option value="password">Password</option>
-            <option value="sshkey">sshkey</option>
-            <option value="sshkewith_password">sshkey with Password</option>
-          </select><br>
+      
         <label for="psw"><b>Server Name</b></label><br>
         <input type="text" id="server_name" name="server" title="server" placeholder="server" /><br>
         <label for="psw"><b>Server Ip</b></label><br>
@@ -130,12 +125,44 @@
         <input type="number" min="1" id="port" name="port" title="port" placeholder="port" /><br>
         <label for="psw"><b>User</b></label><br>
         <input type="text" id="user" name="user" title="user" placeholder="user" /><br>
+          <label for="psw"><b>Connect Method</b></label><br>
+        <select name="connect_method" id="connect_method" onchange = "ShowHideDiv()">
+            <option value="password">Password</option>
+            <option value="sshkey">sshkey</option>
+            <option value="sshkewith_password">sshkey with Password</option>
+          </select><br>
+          <div id="pa"> 
         <label for="psw"><b>Password</b></label><br>
         <input type="password" id="password" name="password" title="password" placeholder="password" /><br>
+          </div>
+        <div id="key" style="display: none"> 
+        <label for="psw"><b>Key</b></label><br>
+        <input type="text" id="key" name="key" title="key" placeholder="key"  /><br>
+        </div>
         <button type="submit" >Connect</button><br>
          </form>
       </div>
      
-     
+     <script type="text/javascript">
+    function ShowHideDiv() {
+        var connect_method = document.getElementById("connect_method").value;
+        var key = document.getElementById("key");
+         var pa = document.getElementById("pa");
+        if(connect_method == "sshkey")
+        {
+        key.style.display = connect_method == "sshkey" ? "block" : "none";
+         pa.style.display= 'none';
+        }
+        else if(connect_method == "sshkewith_password")
+        {
+        key.style.display = connect_method == "sshkewith_password" ? "block" : "none";
+        pa.style.display = connect_method == "sshkewith_password" ? "block" : "none";
+        }
+        else
+        {
+         key.style.display = connect_method == "passwprd" ? "display" : "none";   
+        }
+    }
+</script>
     </body>
   </html>
